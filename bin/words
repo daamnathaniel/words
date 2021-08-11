@@ -1,2 +1,11 @@
 #!/usr/bin/env ruby                
-puts "hello world!"
+
+
+require_relative '../config/environment'
+
+CLI.new.call
+
+
+
+
+#puts "hello world!"
