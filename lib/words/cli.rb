@@ -5,7 +5,7 @@ class CLI
     main_menu
   end
 
-  
+
   def greeting
     Say.("welcome to words")
   end
@@ -21,7 +21,7 @@ class CLI
      make = MakeRequest.new
      @request = make.request
      make.user_choose(:endpoint, Ask.("choose [words] or [sug]gestions" ))
-     if @request.endpoint == "words" 
+     if @request.endpoint == "words"
   	   make.user_choose(:constraint, Ask.("which constraint? "))
 	   make.constraint(Constraints[constraint])
        make.user_choose(:variable, Ask.("which variable?" ))
@@ -48,9 +48,9 @@ Constraints = { "sounds_like" => "sl", "spelled_like" => "sp", "means_like" => "
 class Request < Struct.new(:endpoint, :constraint, :variable, :path)
 end
 
-class MakeRequest
+class Make
    attr_accessor :request, :response
-   def initialize
+   def initialize(
      @request = Request.new
    end
 
@@ -95,7 +95,7 @@ class Words
 
   def initialize(response)
     @recent = []
-    @results = response.each do |r|	
+    @results = response.each do |r|
       r_word = r["word"]
       r_word = Word.new(r)
       self.add(r_word)
@@ -109,9 +109,9 @@ class Words
   def self.recent
     @recent
   end
-      
+
   def add(word)
-    @recent << word[:word] 
+    @recent << word[:word]
     @@all[word[:word]] = word
   end
 
@@ -121,7 +121,18 @@ class Words
 end
 
 
+require 'http'
 
+
+request =-> (constraint, variable) {  api.send('words/', { constraint.to_sym => variable  })}
+
+
+class Word < Struct.new(hash)
+  def initialize(hash)
+    hash.each do |key,value|
+      send("#{key}=", value)
+    end
+  end
 
 
 
