@@ -1,40 +1,43 @@
+module Words
 
-class Words::Request
-  attr_accessor :base, :endpoint, :constraint, :variable, :path
-
-  def initialize(base=nil, endpoint=nil, constraint=nil, variable=nil)
-    @base = 'api.datamuse.com'
-    @endpoint = endpoint
-    @constraint = constraint
-    @variable = variable
-    @path = path
+  class Request < Struct.new(:base, :endpoint, :constraint, :variable, :path, :response)
   end
 
-  def endpoint
-    @endpoint ||= Ask.('words or sug? ')
-  end
+  class RequestBuilder
+    attr_accessor :request, :response
 
-  def constraint
-    if @endpoint == "words"
-      @constraint ||= Ask.('which constraint?')
-    else @endpoint == "sug"
-      @consraint = "s"
+    def initialize
+      @request = Words::Request.new
+      @request.base = "https://api.datamuse.com"
+    end
+
+    def endpoint(endpoint=Words::Ask.('words or sug?'))
+      @request.endpoint = endpoint
+    end
+
+    def constraint(constraint="sl")
+      if @request.endpoint == "sug"
+        @request.constraint = 's'
+      else @request.endpoint == "words"
+        @request.constraint ||= Words::Ask.('which constraint?')
+      end
+    end
+
+    def variable(variable=Words::Ask.('which variable?'))
+      @request.variable = variable
+    end
+
+    def path
+      @request.path = "#{@request.base}/#{@request.endpoint}?#{@request.constraint}=#{@request.variable}&md=dpsrf"
+    end
+
+    def response
+      response = HTTP.get(@request.path)
+      @response = JSON.parse(response, { :symbolize_names => true})
+    end
+
+    def request
+      @request
     end
   end
-
-  def variable
-    @variable ||= Ask.('which variable?')
-  end
-
-  def path
-    @path = "#{@base}/#{@endpoint}?#{@constraint}=#{@variable}&md=dpsrf"
-  end
-
-  def make
-    self.endpoint
-    self.constraint
-    self.variable
-    self.path
-  end
-
 end

@@ -3,3 +3,4 @@
 require './lib/words'
 
 Words::CLI.new.call
+

@@ -5,13 +5,11 @@ class Words::CLI
   end
 
   def start
-    @session = Session.new
     main
   end
 
   def main
-    @session.request
-    @session.menu
-    @session.response
+    @session = Words::Session.new
+    @session.build_request
   end
 end

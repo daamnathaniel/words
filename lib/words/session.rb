@@ -1,24 +1,26 @@
 class Words::Session
-  attr_reader :menu, :response, :exit
+  attr_reader :request, :menu, :exit
 
   def initialize
-    @request = Request.new
-    @menu = Menu.new
-    @response = Response.new
+    @build = Words::RequestBuilder.new
   end
 
-  def request
-    @request_made = @request.make
+  def build_request
+    @build.endpoint
+    @build.constraint
+    @build.variable
+    @build.path
+    @build.response
+    @response = @build.request.response
   end
 
-  def menu
-    puts "menu"
+  def present_results
+
   end
 
-  def response
-    @response.get(@request_made)
-    @response.parsed
+  def get_direction
   end
+
 
   def exit
   end
