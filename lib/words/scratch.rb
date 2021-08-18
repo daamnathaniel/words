@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-
 require 'blanket'
 
 module Damu
@@ -38,4 +35,40 @@ module Damu
     topics: :topic,
     v: :vocabulary
   }
+
+end
+
+
+module Damu
+  class Request < Struct.new(:endpoint, :params)
+
+    WordMethods.each do |k,v|
+      define_method(k) do |variable|
+        self.params = { v => variable }
+        self
+      end
+    end
+
+    def fetch
+      constraint = params.map(&:entries)[0][0]
+      variable = params.map(&:entries)[0][1]
+      Blanket::wrap("https://api.datamuse.com/#{endpoint}?#{constraint}=#{variable}&md=dpsrf").get
+     end
+  end
+end
+
+module Damu
+  class Word
+
+
+
+
+
+
+  end
+
+
+
+
+
 end
