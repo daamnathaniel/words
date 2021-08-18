@@ -1,13 +1,13 @@
-module Words
 
-  class Request < Struct.new(:base, :endpoint, :constraint, :variable, :path, :response)
+
+  class Words::Request < Struct.new(:base, :endpoint, :constraint, :variable, :path, :response)
   end
 
-  class RequestBuilder
+  class Words::RequestBuilder
     attr_accessor :request, :response
 
-    def initialize
-      @request = Words::Request.new
+    def initialize(request=Words::Request.new)
+      @request = request
       @request.base = "https://api.datamuse.com"
     end
 
@@ -32,12 +32,23 @@ module Words
     end
 
     def response
-      response = HTTP.get(@request.path)
-      @response = JSON.parse(response, { :symbolize_names => true})
+      resp = HTTP.get(@request.path)
+      JSON.parse(resp, { :symbolize_names => true})
     end
 
     def request
       @request
     end
   end
-end
+
+
+
+b = Words::RequestBuilder.new
+b.endpoint("words")
+b.constraint("sp")
+b.variable("cat")
+b.path
+br = b.response
+
+
+Diction

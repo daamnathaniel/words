@@ -11,5 +11,11 @@ class Words::CLI
   def main
     @session = Words::Session.new
     @session.build_request
+    @session.present_results
   end
+
+
+  def display
+
+
 end

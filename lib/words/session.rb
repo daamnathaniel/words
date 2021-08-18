@@ -15,7 +15,7 @@ class Words::Session
   end
 
   def present_results
-
+    @present.results
   end
 
   def get_direction

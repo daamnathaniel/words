@@ -30,25 +30,54 @@ module Diction
   end
 
   def add(key, value)
-    Diction.ary.store(key.to_sym, FancyOpenStruct.new(value))
+    keyn = key
+    key = DeepStruct.new(value)
+    Diction.ary.store(keyn, key)
     Diction.latest.append(key)
   end
 end
 
 
+
+
 class Numbered
-  def list
+  def self.list
     Diction.latest.each.with_index(1) { |e, index| puts "#{index}. #{e}" }
   end
 end
 
 class Word
-  def list
+  def self.list
     Diction.latest.each { |e| puts e }
   end
 end
 
 class Detailed
-  def list(words)
-    w = Diction.ary[words]
-    w[]
+  def self.list(word)
+    Diction.ary[word].tap do |t|
+puts %Q( #{t[:word]}
+#{t[:tags]}
+)
+t[:defs].each{ |r| puts r }
+
+    end
+  end
+end
+
+class Detailed
+  def self.lists(words)
+    words.each do |w|
+      Detailed.list(w.values[0])
+    end
+  end
+end
+
+# .tap(&method(:puts))
+
+
+
+Diction.latest.each{ |e| puts e.values[0] }
+
+Diction.latest.each.with_index(1){ |e, index| puts "#{index} #{e.values[0]}" }
+
+

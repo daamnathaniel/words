@@ -11,17 +11,16 @@ class Results
 
   @@all = {}
 
-  def initialize(words)
-    @latest = []
+  def initialize(words, latest=[])
     @words = words
-    @latest << @words
+    self.addto
   end
 
   def self.addto
-    @words.each do |e|
-      w = e.slice(:word, :defs, :tags)
-      @latest << w
-      @@all.store(w:word, w)
+    @words.each do |w|
+      wword = w[:word].to_sym
+      @@all[wword] = FancyOpenStruct.new(w)
+      @latest << wword
     end
   end
 
@@ -29,22 +28,35 @@ class Results
     @@all
   end
 
-  def self.latest
+  def latest
     @latest
   end
 
-  def self.word_list(part)
+  def word_list(part)
     @words.map { |e| e.select{|k,_| part.include? k } }
   end
 
-  def self.numbered_list(part)
+  def numbered_list(part)
     @words.map.with_index(1) {|e| e.select{|k,_| part.include? k } }
   end
 
-  def self.word_detail(word)
+  def word_detail(word)
     detail = <<-EOT.gsub(/^\s+/, '')
       word[:word] word[:defs]
     EOT
     puts detail
   end
 end
+
+
+
+class Words::Results
+  def initialize(response)
+
+
+
+
+    class List
+      def format
+        @words.each
+
