@@ -1,72 +1,28 @@
-module Damu
-  class Request < Struct.new(:endpoint, :params)
+# frozen_string_literal: true
 
-    WordMethods.each do |k,v|
-      define_method(k) do |variable|
-        self.params = { v => variable }
-        self
-      end
+module DataMuse
+  class Request
+    def initialize(path)
+      @path = path
     end
 
     def fetch
-      constraint = params.map(&:entries)[0][0]
-      variable = params.map(&:entries)[0][1]
-      Blanket::wrap("https://api.datamuse.com/#{endpoint}?#{constraint}=#{variable}&md=dpsrf").get
-     end
+      response = HTTP.get(full_path)
+      JSON.parse(response)
+      # damu = Blanket.wrap(full_path)
+      # damu.get
+    end
+
+    DataMuse::CONSTRAINTS.each do |k, v|
+      define_method k do |variable|
+        self.class.new(@path + "?#{v}=#{variable}&md=dpsrf")
+      end
+    end
+
+    private
+
+    def full_path
+      "http://api.datamuse.com/#{@path}"
+    end
   end
 end
-
-
-
-
-#   class Words::Request < Struct.new(:base, :endpoint, :constraint, :variable, :path, :response)
-#   end
-
-#   class Words::RequestBuilder
-#     attr_accessor :request, :response
-
-#     def initialize(request=Words::Request.new)
-#       @request = request
-#       @request.base = "https://api.datamuse.com"
-#     end
-
-#     def endpoint(endpoint=Words::Ask.('words or sug?'))
-#       @request.endpoint = endpoint
-#     end
-
-#     def constraint(constraint="sl")
-#       if @request.endpoint == "sug"
-#         @request.constraint = 's'
-#       else @request.endpoint == "words"
-#         @request.constraint ||= Words::Ask.('which constraint?')
-#       end
-#     end
-
-#     def variable(variable=Words::Ask.('which variable?'))
-#       @request.variable = variable
-#     end
-
-#     def path
-#       @request.path = "#{@request.base}/#{@request.endpoint}?#{@request.constraint}=#{@request.variable}&md=dpsrf"
-#     end
-
-#     def response
-#      W
-#     end
-
-#     def request
-#       @request
-#     end
-#   end
-
-
-
-# b = Words::RequestBuilder.new
-# b.endpoint("words")
-# b.constraint("sp")
-# b.variable("cat")
-# b.path
-# br = b.response
-
-
-# Diction

@@ -1,8 +1,6 @@
 # Words
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/words`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Words is an api wrapper for DataMuse. For now. It will become an aggregate of different 'word' apis to make searching for words easier.
 
 ## Installation
 
@@ -22,7 +20,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You are first asked to choose between 'words' or 'sug'. Words returns a list of words (and multiword expressions) from a given vocabulary that match a given set of constraints. Sug (for suggestion) provides word suggestions given a partially-entered query using a combination of the operations described in the “/words” resource above. 
+If you choose 'words' you are then asked to choose one of the constraints for the words.
+	means_like, sounds_like, spelled_like, nouns_modified_by, adjectives_that_modify, synonymous_with, trigger_by, antonymns_of, kind_of,
+    more_general_than, comprise, part_of, frequently_follow, frequently_preceed, rhymes_with, kinda_rhymes_with, sound_alike,
+    consonants_match, left_context, right_context, max, topics, v (vocabulary- defaults to English. es for Spanish. enwiki for English-language Wikipedia)
+    refer to DataMuse site for further explaination[DataMuse](https://www.datamuse.com/api/)
+If you choose 'sug' and after you choose a constraint, then choose the word or partial word you want your search to be based upon.
+
+When given a list, the option of 'more' is available to choose a specific word for more detail.
 
 ## Development
 
