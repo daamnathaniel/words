@@ -7,14 +7,20 @@ module DataMuse
     end
 
     def fetch
-      response = HTTP.get(full_path)
-      JSON.parse(response)
-      # damu = Blanket.wrap(full_path)
-      # damu.get
+      # response = HTTP.get(full_path)
+      # JSON.parse(response)
+       damu = Blanket.wrap(full_path)
+       damu.get
     end
 
     DataMuse::CONSTRAINTS.each do |k, v|
       define_method k do |variable|
+        self.class.new(@path + "?#{v}=#{variable}&md=dpsrf")
+      end
+    end
+
+    DataMuse::CONSTRAINTS.each do |k, v|
+      define_method v do |variable|
         self.class.new(@path + "?#{v}=#{variable}&md=dpsrf")
       end
     end

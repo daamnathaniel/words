@@ -699,3 +699,26 @@ fix where if select 'sug' it doesn't ask for constraint
 
 
 fix where if more is selected after sug...it will provide the entire word options..not just the word and score
+
+
+
+
+
+choices = DataMuse::CONSTRAINTS.keys.map(&:to_s)
+      add_spaces = -> (word) { "#{word}#{' ' * (24 - word.length)}" }         
+      newchoices = []
+      choices.each{ |choice| newchoices << add_spaces.(choice) }
+      newchoices.each_slice(5){ |choice| puts choice * "" }
+    end
+
+
+newchoices = []
+
+def choices(choices)
+  @choices = choices
+end
+
+def add_spaces(word)
+   "#{word}#{' ' * (24 - word.length)}"
+end
+

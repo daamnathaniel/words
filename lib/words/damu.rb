@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+
+# DataMuse module instantiates Request with API endpoint arguments
 module DataMuse
   def self.words
     Request.new('words')
@@ -10,6 +12,7 @@ module DataMuse
   end
 end
 
+# DataMuse constraints serves as 
 module DataMuse
   CONSTRAINTS = {
     sounds_like: :sl,
