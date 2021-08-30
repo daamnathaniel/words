@@ -29,5 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "highline"
   spec.add_dependency "recursive-open-struct"
   spec.add_dependency "http"
+  spec.add_dependency "tty-prompt"
+  spec.add_dependency "blanket"
 
 end

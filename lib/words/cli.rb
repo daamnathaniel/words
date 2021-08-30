@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'pry'
 
 module Words
@@ -9,28 +10,30 @@ module Words
     end
 
     def start
-      endpoint_query      = Words::Query.new(%q(
+      endpoint_query      = Query.new( %q(
   words - returns a list of words based upon a given constraint.
   sug - will return a list of words based upon a partial word given.
     _______
-  words or sug?"), { 'words': "words", 'suggestions': "sug" } )
-      constraint_query    = Words::Query.new( 'which constraint? I.e you are looking for words...', DataMuse::CONSTRAINTS )
-      variable_query      = Words::Query.new( 'which word or partial word to base your search on?' )
-      second_query        = Words::Query.new( 'would you like to see [more] info? search [again] or [quit]?',  { 'more info on a particular word': :more, 'search again': :again, 'quit program': :quit  } )
-      extended_query      = Words::Query.new( 'which word?', :resuts )
-      third_query         = Words::Query.new( 'search [again) or [quit]?', { 'search again': :again, 'quit program': :quit } ) 
+  words or sug? ), { 'words': "words", 'suggestions': "sug" } )
+      constraint_query    = Query.new(%q(
+  which constraint?
+  You are looking for words (that/that are)...), DataMuse::CONSTRAINTS )
+      variable_query      = Query.new( 'what word? what word or partial word to base your search on?' )
+      second_query        = Query.new( 'would you like to see [more] info? search [again] or [quit]?',  { 'more info on a particular word': :more, 'search again': :again, 'quit program': :quit  } )
+      extended_query      = Query.new( 'which word?', :resuts )
+      third_query         = Query.new( 'search [again) or [quit]?', { 'search again': :again, 'quit program': :quit } )
 
-      first_menu          = Words::FirstMenu.new(endpoint_query, constraint_query, variable_query)
+      first_menu = FirstMenu.new(endpoint_query, constraint_query, variable_query)
       first_menu.prompt
       @first_response = first_menu.call
       S.columns(@first_response)
 
-      second_menu         = Words::SecondMenu.new(second_query, @first_response.payload)
+      second_menu = SecondMenu.new(second_query, @first_response.payload)
       second_menu.prompt
       response = second_menu.call
       S.individual(response)
 
-      third_menu          = Words::ThirdMenu.new(third_query)
+      third_menu = ThirdMenu.new(third_query)
       third_menu.prompt
     end
 
@@ -62,7 +65,7 @@ end
 #       third
 #       bye
 #     end
-    
+
 #     def greet
 #       say('Welcome to words. words finds words.')
 #     end
@@ -115,4 +118,4 @@ end
 #     end
 
 #   end
-# end    
+# end

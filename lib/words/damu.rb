@@ -15,8 +15,8 @@ end
 # DataMuse constraints serves as 
 module DataMuse
   CONSTRAINTS = {
-    sounds_like: :sl,
-    means_like: :ml,
+    sound_like: :sl,
+    mean_like: :ml,
     spelled_like: :sp,
     nouns_modified_by: :rel_jja,
     adjectives_that_modify: :rel_jjb,
@@ -29,8 +29,8 @@ module DataMuse
     part_of: :rel_par,
     frequently_follow: :rel_bga,
     frequently_preceed: :rel_bgb,
-    rhymes_with: :rel_rhy,
-    kinda_rhymes_with: :rel_nry,
+    rhyme_with: :rel_rhy,
+    kinda_rhyme_with: :rel_nry,
     sound_alike: :rel_hom,
     consonants_match: :rel_cns,
     left_context: :lc,
