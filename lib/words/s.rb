@@ -1,17 +1,12 @@
+
 module S
   extend self
   def words_fetch(endpoint, constraint, variable) 
     DataMuse.send(endpoint).send(constraint, variable).fetch
   end
 
-  def ift(this, that, something=nil)
-    if this
-      that
-    else
-      something
-    end
-  end
-
+  ifthen = proc {|that, this| that if this }
+ 
   def columns(response)
     response_array = []
     response.each do |resp|
@@ -30,7 +25,7 @@ module S
     puts %( 
 #{r.word} | #{r&.defHeadword}
 p:#{r.tags[0]} #{r.tags[1]} #{r.tags[2]} s:#{r.numSyllables} )
-    r&.defs.each { |r| puts r }
+    r&.defs&.each { |r| puts r }
     puts ''
   end
 end

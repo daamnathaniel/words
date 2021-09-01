@@ -1,4 +1,8 @@
 module Words
+
+  Query = Struct.new(:question, :options)
+
+  
   class FirstMenu
 
     def initialize(endpoint, constraint, variable)
@@ -65,5 +69,4 @@ module Words
     end
   end
 
-  Query = Struct.new(:question, :options)
 end

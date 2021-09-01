@@ -15,9 +15,7 @@ module Words
   sug - will return a list of words based upon a partial word given.
     _______
   words or sug? ), { 'words': "words", 'suggestions': "sug" } )
-      constraint_query    = Query.new(%q(
-  which constraint?
-  You are looking for words (that/that are)...), DataMuse::CONSTRAINTS )
+      constraint_query    = Query.new( 'which constraint? \n You are looking for words [that/that are]...', DataMuse::CONSTRAINTS ) 
       variable_query      = Query.new( 'what word? what word or partial word to base your search on?' )
       second_query        = Query.new( 'would you like to see [more] info? search [again] or [quit]?',  { 'more info on a particular word': :more, 'search again': :again, 'quit program': :quit  } )
       extended_query      = Query.new( 'which word?', :resuts )

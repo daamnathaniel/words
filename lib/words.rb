@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-#require 'blanket'
-#require 'highline/import'
-#require 'http'
 require 'recursive-open-struct'
 require 'pry'
 require 'tty-prompt'
