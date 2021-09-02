@@ -16,6 +16,9 @@ GEM
     blanket (0.1.0)
       aws-s3 (>= 0.4.0, < 1.0)
       capistrano (>= 2.0.0, < 2.99.0)
+    blanket_wrapper (3.0.2)
+      httparty
+      recursive-open-struct
     builder (3.2.4)
     capistrano (2.15.9)
       highline
@@ -26,11 +29,15 @@ GEM
     coderay (1.1.3)
     diff-lcs (1.4.4)
     highline (2.0.3)
+    httparty (0.18.1)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2021.0704)
     minitest (5.14.4)
+    multi_xml (0.6.0)
     net-scp (3.0.0)
       net-ssh (>= 2.6.5, < 7.0.0)
     net-sftp (3.0.0)
@@ -72,9 +79,10 @@ GEM
     xml-simple (1.1.8)
 
 PLATFORMS
-  x86_64-linux
+  ruby
 
 DEPENDENCIES
+  blanket_wrapper
   bundler
   minitest (~> 5.0)
   pry
@@ -83,4 +91,4 @@ DEPENDENCIES
   words!
 
 BUNDLED WITH
-   2.2.26
+   1.17.2

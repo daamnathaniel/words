@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'recursive-open-struct'
+#require 'recursive-open-struct'
 require 'pry'
 require 'tty-prompt'
 require 'blanket'
@@ -13,6 +13,9 @@ require_relative 'words/s'
 require_relative 'words/service'
 require_relative 'words/menu'
 require_relative 'words/cli'
+
+
+
 
   # module Show
   #   extend self
